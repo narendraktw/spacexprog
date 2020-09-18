@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.use("^/$", (req, res) => {
-  fs.readFile(path.resolve("/build/index.html"), "utf-8", (err, data) => {
+  fs.readFile(path.resolve("./build/index.html"), "utf-8", (err, data) => {
     if (err) {
       console.error(err);
       return res.status(500).send("Server Error");
@@ -24,7 +24,7 @@ app.use("^/$", (req, res) => {
   });
 });
 
-app.use(express.static(path.resolve(__dirname, "build")));
+app.use(express.static(path.resolve(__dirname, "..", "build")));
 
 app.listen(PORT, () => {
   console.log(`listening on port: ${PORT}`);
