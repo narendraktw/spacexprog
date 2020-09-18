@@ -1,38 +1,204 @@
-.App {
+* {
+  margin: 0px;
+}
+
+body {
+  background-color: #dadbd3;
+}
+
+.app {
+  display: grid;
+
+  padding: 10px;
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.app__body {
+  display: flex;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.app__title {
+  font-size: 1.4em;
+  padding-bottom: 12px;
+}
+
+.filters__title {
+  font-size: 1.2em;
+}
+
+.app__footer {
+  font-size: 14px;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app__footer > h2 {
+  font-size: 14px;
+  font-weight: 600;
+  display: inline;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* start filters style sheet */
+.filters {
+  flex: 0.2;
+  padding: 12px;
+  margin-bottom: 12px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.filters__subTitle {
+  border-bottom: 2px solid #c5c1be;
+  text-align: center;
+  padding: 15px 3px 3px 3px;
+  font-weight: normal;
+  font-size: 1em;
+  margin: 0 auto;
+  width: 60%;
+}
+
+.filters__category {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  text-align: left;
 }
 
-.App-link {
-  color: #61dafb;
+.filters__btn {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px 10px 20px;
+  margin: 10px 20px 10px 20px;
+  background-color: #c5e09b;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.filters__btn {
+  background-color: #c5e09b;
+}
+
+.filters__btn:hover {
+  background-color: #7cba01;
+}
+
+.filters__btn:visited {
+  background-color: #7cba01;
+}
+
+/* end filters style sheet */
+
+/* start programs style sheet */
+.programs {
+  flex: 0.8;
+}
+
+.programs__list {
+  padding: 0px 12px 0px 12px;
+  list-style: none;
+  display: flex;
+  /* width: 98%; */
+  flex-wrap: wrap;
+}
+
+.programs__list__item {
+  background-color: #fff;
+  padding: 12px;
+  margin: 0px 6px 12px 6px;
+  flex: 0 0 235px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+}
+
+.programs__list__imgBox {
+  text-align: center;
+  background-color: #f2f2f2;
+}
+
+.programs__list__img {
+  width: 70%;
+}
+
+.programs__list__name > h3 {
+  color: #424c95;
+  font-size: 16px;
+  line-height: 30px;
+}
+
+.programs__list_content,
+.programs__list__id {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+/* end programs style sheet */
+
+/* start media query for mobile layout one column until 700px */
+@media screen and (max-width: 700px) {
+  .app__body {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+  .app__title {
+    font-size: 1.2em;
+  }
+  .filters__title {
+    font-size: 1em;
+  }
+  .filters__subTitle {
+    font-size: 0.8em;
+  }
+  .filters {
+    flex: 1;
+  }
+  .programs__list {
+    padding: 10px 0px 10px 0px;
+    display: block;
+  }
+  .programs__list__item {
+    flex: 0 0 100%;
   }
 }
+
+/*  end media query for mobile layout one column until 700px  */
+
+/*  start media query for mobile layout two columns between 700 and 1024 px  */
+@media screen and (min-width: 700px) and (max-width: 1024px) {
+  .filters {
+    flex: 0.3;
+  }
+  .app__title {
+    font-size: 1.4em;
+  }
+  .filters__title {
+    font-size: 1.2em;
+  }
+  .filters__subTitle {
+    font-size: 1em;
+  }
+  .programs {
+    flex: 0.7;
+  }
+  .programs__list__item {
+    flex: 0 0 40%;
+  }
+  .filters__btn {
+    margin: 10px 16px 10px 16px;
+    padding: 10px 16px 10px 16px;
+  }
+}
+/* end media query for mobile layout two columns between 700 and 1024 px */
+
+/*  start media query for mobile layout four columns between 1024 and 1440 px  */
+@media screen and (max-width: 1440px) and (min-width: 1024px) {
+  .programs__list__item {
+    flex: 0 0 20%;
+  }
+  .filters__btn {
+    margin: 10px 16px 10px 16px;
+    padding: 10px 16px 10px 16px;
+  }
+}
+/* end media query for mobile layout four columns between 1024 and 1440 px  */
