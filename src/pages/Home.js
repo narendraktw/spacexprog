@@ -1,26 +1,35 @@
 import React, { useReducer } from "react";
 import useAPI from "../services/useAPI";
 
-const reducer = (state, { type, payload }) => {
-  switch (type) {
+const initialState = {
+  launchSuccess: false,
+  landSuccess: false,
+  year: 0
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
     case "LAUNCH": {
       return {
         ...state,
-        launchSuccess: payload,
+        launchSuccess: action.payload,
       };
     }
     case "LAND": {
       return {
         ...state,
-        landSuccess: payload,
+        landSuccess: action.payload,
       };
     }
     case "YEAR": {
       return {
         ...state,
-        year: payload,
+        year: action.payload,
       };
-    }
+    }    
+    case "RESET": {
+      return initialState;
+    }     
     default: {
       return state;
     }
@@ -28,17 +37,11 @@ const reducer = (state, { type, payload }) => {
 };
 
 function Home() {
-  const initialState = {
-    launchSuccess: false,
-    landSuccess: false,
-    year: 0,
-  };
-
-  
-  const [state = {}, dispatch] = useReducer(reducer, initialState);
-
-  const checkForValues = () => {
-    console.log(state)
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { loading, results, error } = useAPI(checkForValues());
+  console.log("inside component")
+  function checkForValues(){
+    //console.log(state)
     let all = "https://api.spaceXdata.com/v3/launches?limit=100";
 
     if (state.year) {
@@ -52,55 +55,50 @@ function Home() {
     if (state.landSuccess) {
       all += `&land_success=${String(state.landSuccess).toLowerCase()}`;
     }
-    
+
     return all;
   };
 
-  const { loading, results, error } = useAPI(checkForValues());
-
+ 
   
   if (loading || error) {
     return loading ? "Loading..." : error.message;
   }
 
-  const years = [
-    2006,
-    2007,
-    2008,
-    2009,
-    2010,
-    2011,
-    2012,
-    2013,
-    2014,
-    2015,
-    2016,
-    2017,
-    2018,
-    2019,
-    2020,
-  ];
+  const years = [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020];
 
   return (
     <>
       <div className="filters">
-        <h2 className="filters__title">Filters</h2>
+        <div className="filters_head">
+          <h2 className="filters__title">Filters</h2>
+          <button
+            className="filters__btn active"
+            onClick={() => dispatch({ type: "RESET" })}
+            value="All"
+          >
+            All
+          </button>
+        </div>
+
         <h3 className="filters__subTitle">Launch Years</h3>
         <div
           className="filters__category"
           id="launchYear"
-          onClick={(e) =>
+          onClick={(e) => {
+            e.stopPropagation();
+            //console.log(e.target);
             dispatch({
               type: "YEAR",
               payload: e.target.value,
-            })
-          }
+            });
+          }}
         >
           {years.map((item) => (
             <button
               key={item}
-              className={`filters__btn ${item === state.year && "enabled"}`}
-              value={item}              
+              className={`filters__btn ${item === state.year ? "active" : ""}`}
+              value={item}
             >
               {item}
             </button>
@@ -161,7 +159,11 @@ function Home() {
                   <img
                     className="programs__list__img"
                     alt={mission_name}
-                    src={links.mission_patch_small}
+                    src={
+                      links.mission_patch_small != null
+                        ? links.mission_patch_small
+                        : "images/placeholder.png"
+                    }
                   />
                 </div>
                 <div className="programs__list__name">
@@ -190,12 +192,11 @@ function Home() {
                 </div>
                 <div className="programs__list_content">
                   <label>Successful Landing:</label>
-                  <label>
-                    { " true"}
-                    {/* {rocket.first_stage.map(el =>{
-
-                  })} */}
-                  </label>
+                  {                  
+                  rocket.first_stage.cores.map((el, index) => (                    
+                    <label key={index}> {String(el.land_success)}</label>
+                  ))                  
+                }
                 </div>
               </li>
             )
