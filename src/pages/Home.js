@@ -4,7 +4,8 @@ import useAPI from "../services/useAPI";
 const initialState = {
   launchSuccess: false,
   landSuccess: false,
-  year: 0
+  year: 0,
+  activeState:0
 };
 
 const reducer = (state, action) => {
@@ -24,6 +25,7 @@ const reducer = (state, action) => {
     case "YEAR": {
       return {
         ...state,
+        activeState:1,
         year: action.payload,
       };
     }    
@@ -87,7 +89,6 @@ function Home() {
           id="launchYear"
           onClick={(e) => {
             e.stopPropagation();
-            //console.log(e.target);
             dispatch({
               type: "YEAR",
               payload: e.target.value,
@@ -97,8 +98,8 @@ function Home() {
           {years.map((item) => (
             <button
               key={item}
-              className={`filters__btn ${item === state.year ? "active" : ""}`}
-              value={item}
+              className={`filters__btn ${item === initialState.activeState ? "active" : ""}`}
+              value={item}            
             >
               {item}
             </button>

@@ -16,7 +16,8 @@
     "react-scripts": "3.4.3"
   },
   "scripts": {
-    "start": "react-scripts start", 
+    "start": "npx nodemon --exec npx babel-node server/index.js",
+  
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
