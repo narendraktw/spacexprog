@@ -7,8 +7,8 @@ Front-end application which would help users list and browse all launches by Spa
 ## Pre-Requisties
 
 API Information:
-[mockApi](https://api.spaceXdata.com/v3/launches?limit=100) should be running on page load.
-[LaunchSuccessFilter](https://api.spaceXdata.com/v3/launches?limit=100&launch_success=true)
+[mockApi](https://api.spaceXdata.com/v3/launches?limit=100) It will run on page load.
+[LaunchSuccessFilter](https://api.spaceXdata.com/v3/launches?limit=100&launch_success=true) 
 [LaunchLandFilter](https://api.spaceXdata.com/v3/launches?limit=100&launch_success=true&land_success=true)
 [All](https://api.spaceXdata.com/v3/launches?limit=100&launch_success=true&land_success=true&launch_year=2014)
 

@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import useAPI from "../services/useAPI";
+import Loaders from '../components/Loader'
 
 const initialState = {
   launchSuccess: false,
@@ -41,7 +42,7 @@ const reducer = (state, action) => {
 function Home() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { loading, results, error } = useAPI(checkForValues());
-  console.log("inside component")
+  //console.log("inside component")
   function checkForValues(){
     //console.log(state)
     let all = "https://api.spaceXdata.com/v3/launches?limit=100";
@@ -64,7 +65,7 @@ function Home() {
  
   
   if (loading || error) {
-    return loading ? "Loading..." : error.message;
+    return loading ? <Loaders/> : error.message;
   }
 
   const years = [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020];
@@ -151,7 +152,6 @@ function Home() {
               mission_name,
               launch_year,
               launch_success,
-              land_success,
               rocket,
               links,
             }) => (
